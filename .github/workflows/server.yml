@@ -36,3 +36,14 @@ jobs:
           REMOTE_HOST: '124.221.231.217' # 你的阿里云公网地址
           REMOTE_USER: root # 阿里云登录后默认为 root 用户，并且所在文件夹为 root
           TARGET: /root/public # 打包后的 dist 文件夹将放在 /root/node-server
+    - name: Restart server # 第三步，重启服务
+      uses: appleboy/ssh-action@master
+      with:
+          host: '124.221.231.217' # 下面三个配置与上一步类似
+          username: root
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          # 重启的脚本，根据自身情况做相应改动，一般要做的是migrate数据库以及重启服务器
+          script: |
+            cd ~/public/output
+            npm install
+            pm2 restart main.js
