@@ -8,11 +8,8 @@ WORKDIR /usr/local/server
 
 COPY ./package.json ./
 
-RUN npm i
+RUN npm i 
 
 COPY ./ ./
 
-# 改为 pm2
-CMD npm run start 
-
-EXPOSE 3000
+CMD npm run start
