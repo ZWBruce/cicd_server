@@ -1,7 +1,14 @@
-import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ConfigService } from './config.service';
 import { ConfigEntity } from './config.entity';
-import { get } from 'lodash';
 
 @Controller('v1/config')
 export class ConfigController {
@@ -15,8 +22,13 @@ export class ConfigController {
   }
 
   @Put(':id')
-  async update(@Body() config: Partial<ConfigEntity>, @Param() id: number) {
+  async update(@Body() config: Partial<ConfigEntity>, @Param('id') id: number) {
     return this.configService.update({ ...config, id });
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: number) {
+    return this.configService.remove(id);
   }
 
   @Get(':key')

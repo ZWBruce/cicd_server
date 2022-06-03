@@ -18,7 +18,12 @@ export class ConfigService {
 
   update(config: Partial<ConfigEntity>) {
     assert(config.id, 'id is required');
-    return this.configRepository.update(config.id, config);
+
+    return this.configRepository.update(config.id, omit(config, 'id'));
+  }
+
+  remove(id: number) {
+    return this.configRepository.softDelete(id);
   }
 
   findByKey(key: string): Promise<ConfigEntity> {

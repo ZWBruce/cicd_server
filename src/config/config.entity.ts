@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
 @Entity('website_config')
 export class ConfigEntity {
@@ -17,6 +22,9 @@ export class ConfigEntity {
   @Column({ type: 'datetime', default: 'CURRENT_TIMESTAMP' })
   updateTime: Date;
 
-  @Column({ type: 'datetime' })
+  @DeleteDateColumn({
+    type: 'datetime',
+    comment: '删除时间',
+  })
   deleteTime?: Date;
 }
